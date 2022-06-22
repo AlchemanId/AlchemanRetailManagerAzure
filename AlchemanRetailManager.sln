@@ -5,6 +5,8 @@ VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARMDataManager", "ARMDataManager\ARMDataManager.csproj", "{ED68CB78-C485-46B4-A349-7E3F4C629D33}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ARMData", "ARMData\ARMData.sqlproj", "{17BF8CFA-2FF0-4C97-AE81-2EEF387CBA95}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,12 @@ Global
 		{ED68CB78-C485-46B4-A349-7E3F4C629D33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED68CB78-C485-46B4-A349-7E3F4C629D33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED68CB78-C485-46B4-A349-7E3F4C629D33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17BF8CFA-2FF0-4C97-AE81-2EEF387CBA95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17BF8CFA-2FF0-4C97-AE81-2EEF387CBA95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17BF8CFA-2FF0-4C97-AE81-2EEF387CBA95}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{17BF8CFA-2FF0-4C97-AE81-2EEF387CBA95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17BF8CFA-2FF0-4C97-AE81-2EEF387CBA95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17BF8CFA-2FF0-4C97-AE81-2EEF387CBA95}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
