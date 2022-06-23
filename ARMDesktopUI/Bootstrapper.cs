@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using ARMDesktopUI.ViewModels;
+using ARMDesktopUI.Helpers;
+using System.Windows.Controls;
 
 namespace ARMDesktopUI
 {
@@ -16,6 +18,11 @@ namespace ARMDesktopUI
         public Bootstrapper()
         {
             Initialize();
+
+            ConventionManager.AddElementConvention<PasswordBox>(
+            PasswordBoxHelper.BoundPasswordProperty,
+            "Password",
+            "PasswordChanged");
         }
 
         protected override void Configure()
