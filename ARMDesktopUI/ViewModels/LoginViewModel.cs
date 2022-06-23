@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using ARMDesktopUI.Helpers;
+using Caliburn.Micro;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,12 @@ namespace ARMDesktopUI.ViewModels
     {
         private string _username;
         private string _password;
-
+        private IAPIHelper _apiHelper;
+        
+        public LoginViewModel(IAPIHelper apiHelper)
+        {
+            _apiHelper = apiHelper;
+        }
         public string Username
         {
             get { return _username; }
@@ -51,9 +57,9 @@ namespace ARMDesktopUI.ViewModels
             }
         }
 
-        public void LogIn()
+        public async Task LogIn()
         {
-            Console.WriteLine();
+            var result = await _apiHelper.Authenticate(Username, Password);
         }
 
     }
