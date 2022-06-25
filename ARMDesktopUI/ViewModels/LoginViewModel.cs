@@ -1,4 +1,5 @@
-﻿using ARMDesktopUI.Helpers;
+﻿using ARMDesktopUI.EventModels;
+using ARMDesktopUI.Helpers;
 using ARMDesktopUI.Library.API;
 using Caliburn.Micro;
 using System;
@@ -14,10 +15,12 @@ namespace ARMDesktopUI.ViewModels
         private string _username;
         private string _password;
         private IAPIHelper _apiHelper;
+        private IEventAggregator _events;
         
-        public LoginViewModel(IAPIHelper apiHelper)
+        public LoginViewModel(IAPIHelper apiHelper, IEventAggregator events)
         {
             _apiHelper = apiHelper;
+            _events = events;
         }
         public string Username
         {
@@ -40,7 +43,6 @@ namespace ARMDesktopUI.ViewModels
                 NotifyOfPropertyChange(() => CanLogIn);
             }
         }
-
 
         public bool IsErrorVisible
         {
@@ -94,7 +96,7 @@ namespace ARMDesktopUI.ViewModels
 
                 // capture more informtion about the user
                 await _apiHelper.GetLoggedInUserInfo(result.Access_Token);
-                
+                _events.PublishOnUIThread(new LogOnEvent());
             }
             catch ( Exception ex)
             {

@@ -83,7 +83,7 @@ namespace ARMDesktopUI.ViewModels
         {
 
         }
-        public bool CanRemoveToCart
+        public bool CanRemoveFromCart
         {
             get
             {
@@ -92,7 +92,7 @@ namespace ARMDesktopUI.ViewModels
                 return output;
             }
         }
-        public void RemoveToCart()
+        public void RemoveFromCart()
         {
 
         }
