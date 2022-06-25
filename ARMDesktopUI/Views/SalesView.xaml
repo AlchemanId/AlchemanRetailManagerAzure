@@ -70,6 +70,6 @@
         </DockPanel>
 
         <Button x:Name="CheckOut" Grid.Row="6" Grid.Column="2"
-                Content="Check Out" Margin="0 20 0 0" Padding="5"
+                Content="Check Out" Margin="0 20 0 0" Padding="5"/>
     </Grid>
 </Window>
