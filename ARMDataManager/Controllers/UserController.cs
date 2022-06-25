@@ -14,11 +14,20 @@ namespace ARMDataManager.Controllers
     public class UserController : ApiController
     {
         // GET: User/Details/5
-        public List<UserModel> Details()
+        public UserModel Details()
         {
             string userId = HttpContext.Current.User.Identity.GetUserId();
             UserData data =  new UserData();
-            return data.GetUserById(userId);
+            return data.GetUserById(userId).First();
+        }
+
+        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
+        [Route("UserNameInfo")]
+        public UsernameModel UserNameInfo()
+        {
+            string username = HttpContext.Current.User.Identity.GetUserName();
+            UsernameData data = new UsernameData();
+            return data.GetUserByName(username).First();
         }
     }
 }
