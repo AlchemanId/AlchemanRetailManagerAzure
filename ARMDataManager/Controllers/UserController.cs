@@ -13,8 +13,8 @@ namespace ARMDataManager.Controllers
     [RoutePrefix("api/User")]
     public class UserController : ApiController
     {
-        // GET: User/Details/5
-        public UserModel Details()
+        [HttpGet] // this allow you to do 'get' method
+        public UserModel GetById()
         {
             string userId = HttpContext.Current.User.Identity.GetUserId();
             UserData data =  new UserData();

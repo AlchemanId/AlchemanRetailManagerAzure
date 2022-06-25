@@ -1,4 +1,5 @@
 ﻿using ARMDesktopUI.Helpers;
+using ARMDesktopUI.Library.API;
 using Caliburn.Micro;
 using System;
 using System.Collections.Generic;
@@ -90,6 +91,9 @@ namespace ARMDesktopUI.ViewModels
             {
                 ErrorMessage = "";
                 var result = await _apiHelper.Authenticate(Username, Password);
+
+                // capture more informtion about the user
+                await _apiHelper.GetLoggedInUserInfo(result.Access_Token);
                 
             }
             catch ( Exception ex)
