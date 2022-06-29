@@ -53,6 +53,7 @@
     <Compile Include="API\IProductEndpoint.cs" />
     <Compile Include="API\ProductEndpoint.cs" />
     <Compile Include="Models\AuthenticatedUser.cs" />
+    <Compile Include="Models\CartItemModel.cs" />
     <Compile Include="Models\ILoggedInUserModel.cs" />
     <Compile Include="Models\LoggedInUserModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
@@ -61,6 +62,12 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ARMDataManager.Library\ARMDataManager.Library.csproj">
+      <Project>{E2901715-4452-4812-BDB8-FA79A56A8A11}</Project>
+      <Name>ARMDataManager.Library</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
