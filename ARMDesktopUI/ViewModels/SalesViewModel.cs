@@ -1,6 +1,8 @@
 ﻿using ARMDesktopUI.Library.API;
 using ARMDesktopUI.Library.Helpers;
 using ARMDesktopUI.Library.Models;
+using ARMDesktopUI.Models;
+using AutoMapper;
 using Caliburn.Micro;
 using System;
 using System.Collections.Generic;
@@ -17,11 +19,14 @@ namespace ARMDesktopUI.ViewModels
         IProductEndpoint _productEndpoint;
         IConfigHelper _configHelper;
         ISaleEndpoint _saleEndpoint;
-        public SalesViewModel(IProductEndpoint productEndpoint, IConfigHelper configHelper, ISaleEndpoint saleEndpoint)
+        IMapper _mapper;
+        public SalesViewModel(IProductEndpoint productEndpoint, IConfigHelper configHelper,
+            ISaleEndpoint saleEndpoint, IMapper mapper)
         {
             _productEndpoint = productEndpoint;
             _configHelper = configHelper;
             _saleEndpoint = saleEndpoint;
+            _mapper = mapper;
         }
         
         protected override async void OnViewLoaded(object view)
@@ -33,12 +38,13 @@ namespace ARMDesktopUI.ViewModels
         private async Task LoadProducts()
         {
             var productList = await _productEndpoint.GetAll();
-            Products = new BindingList<ProductModel>(productList);
+            var products = _mapper.Map<List<ProductDisplayModel>>(productList);
+            Products = new BindingList<ProductDisplayModel>(products);
         }
 
-        private BindingList<ProductModel> _products;
+        private BindingList<ProductDisplayModel> _products;
 
-        public BindingList<ProductModel> Products
+        public BindingList<ProductDisplayModel> Products
         {
             get { return _products; }
             set 
@@ -48,9 +54,9 @@ namespace ARMDesktopUI.ViewModels
             }
         }
 
-        private ProductModel _selectedProduct;
+        private ProductDisplayModel _selectedProduct;
 
-        public ProductModel SelectedProduct
+        public ProductDisplayModel SelectedProduct
         {
             get { return _selectedProduct; }
             set 
@@ -61,9 +67,9 @@ namespace ARMDesktopUI.ViewModels
             }
         }
 
-        private BindingList<CartItemModel> _cart = new BindingList<CartItemModel>();
+        private BindingList<CartItemDisplayModel> _cart = new BindingList<CartItemDisplayModel>();
 
-        public BindingList<CartItemModel> Cart
+        public BindingList<CartItemDisplayModel> Cart
         {
             get { return _cart; }
             set 
@@ -96,7 +102,7 @@ namespace ARMDesktopUI.ViewModels
         private decimal CalculateSubTotal()
         {
             decimal subTotal = 0;
-            foreach (CartItemModel item in Cart)
+            foreach (CartItemDisplayModel item in Cart)
             {
                 subTotal += item.Product.RetailPrice * item.QuantityInCart;
             }
@@ -120,7 +126,7 @@ namespace ARMDesktopUI.ViewModels
                 .Where(x => x.Product.IsTaxAble)
                 .Sum(x => x.Product.RetailPrice * x.QuantityInCart * taxRate);
 
-            //foreach (CartItemModel item in Cart)
+            //foreach (CartItemDisplayModel item in Cart)
             //{
             //    if (item.Product.IsTaxAble)
             //    {
@@ -158,7 +164,7 @@ namespace ARMDesktopUI.ViewModels
         }
         public void AddToCart()
         {
-            CartItemModel existingItem = Cart.FirstOrDefault(x => x.Product == SelectedProduct);
+            CartItemDisplayModel existingItem = Cart.FirstOrDefault(x => x.Product == SelectedProduct);
             if (existingItem != null)
             {
                 existingItem.QuantityInCart += ItemQuantity;
@@ -168,7 +174,7 @@ namespace ARMDesktopUI.ViewModels
             }
             else
             {
-                CartItemModel item = new CartItemModel
+                CartItemDisplayModel item = new CartItemDisplayModel
                 {
                     Product = SelectedProduct,
                     QuantityInCart = ItemQuantity
