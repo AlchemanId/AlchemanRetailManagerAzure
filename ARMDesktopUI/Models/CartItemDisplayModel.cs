@@ -18,8 +18,8 @@ namespace ARMDesktopUI.Models
             set 
             { 
                 _quantityInCart = value;
-                CallPropertyChanged(nameof(QuantityInCart));
-                CallPropertyChanged(nameof(DisplayText));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(QuantityInCart)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayText)));
             }
         }
 
@@ -32,9 +32,6 @@ namespace ARMDesktopUI.Models
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public void CallPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(propertyName)));
-        }
+
     }
 }
