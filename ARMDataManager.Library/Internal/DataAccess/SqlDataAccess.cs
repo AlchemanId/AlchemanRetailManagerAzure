@@ -28,9 +28,9 @@ namespace ARMDataManager.Library.Internal.DataAccess
         }
         public void SaveData<T>(string storedProcedure, T parameters, string connectionStringName)
         {
-            string connctionString = GetConnectionString(connectionStringName);
+            string connectionString = GetConnectionString(connectionStringName);
 
-            using (IDbConnection connection = new SqlConnection())
+            using (IDbConnection connection = new SqlConnection(connectionString))
             {
                 connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }

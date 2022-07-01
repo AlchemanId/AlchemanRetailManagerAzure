@@ -5,12 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ARMDesktopUI.Library.Helpers
+namespace ARMDataManager.Library
 {
-    public class ConfigHelper : IConfigHelper
+    public class ConfigHelper
     {
-        //TODO: move this from config to the API
-        public decimal GetTaxRate()
+        public static decimal GetTaxRate()
         {
             decimal output = 0;
 
