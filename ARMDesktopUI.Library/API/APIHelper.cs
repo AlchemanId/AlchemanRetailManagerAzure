@@ -69,13 +69,13 @@ namespace ARMDesktopUI.Library.API
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsAsync<LoggedInUserModel>();
-                    _loggedInUser = result;
-                    //_loggedInUser.CreatedDate = result.CreatedDate;
-                    //_loggedInUser.EmailAddress = result.EmailAddress;
-                    //_loggedInUser.FirstName = result.FirstName;
-                    //_loggedInUser.LastName = result.LastName;
-                    //_loggedInUser.Id = result.Id;
+                    //_loggedInUser = result; //using this cause the value not asign to property
                     _loggedInUser.Token = token;
+                    _loggedInUser.Id = result.Id;
+                    _loggedInUser.FirstName = result.FirstName;
+                    _loggedInUser.LastName = result.LastName;
+                    _loggedInUser.EmailAddress = result.EmailAddress;
+                    _loggedInUser.CreatedDate = result.CreatedDate;
                 }
                 else
                 {
