@@ -10,5 +10,5 @@ BEGIN
 	set nocount on
 	insert into dbo.Sale(CashierId, SaleDate, SubTotal, Tax, Total)
 	values (@CashierId, @SaleDate, @SubTotal, @Tax, @Total)
-	SELECT @Id = @@IDENTITY
+	SELECT @Id = Scope_IDENTITY()
 END
