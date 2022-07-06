@@ -71,7 +71,7 @@ namespace ARMDataManager.Library.DataAccess
                         // save the sale detail models
                         sql.SaveDataInTransaction("dbo.spSaleDetailInsert", item);
                     }
-                    //sql.CommitTransaction();
+                    sql.CommitTransaction();
                 }
                 catch
                 {
