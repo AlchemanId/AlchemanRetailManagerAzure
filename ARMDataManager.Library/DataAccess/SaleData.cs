@@ -79,9 +79,13 @@ namespace ARMDataManager.Library.DataAccess
                     throw;
                 }
             }
+        }
+        public List<SaleReportModel> GetSaleReport()
+        {
+            SqlDataAccess sql = new SqlDataAccess();
 
-            
-
+            var output = sql.LoadData<SaleReportModel, dynamic>("dbo.spSaleReport", new { }, "ARMData");
+            return output;
         }
     }
 }

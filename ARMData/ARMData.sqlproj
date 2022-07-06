@@ -9,8 +9,7 @@
     <ProjectGuid>{17bf8cfa-2ff0-4c97-ae81-2eef387cba95}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
-    <RootPath>
-    </RootPath>
+    <RootPath />
     <RootNamespace>ARMData</RootNamespace>
     <AssemblyName>ARMData</AssemblyName>
     <ModelCollation>1033, CI</ModelCollation>
@@ -48,7 +47,6 @@
   </PropertyGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
-    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
     <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
     <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
   </PropertyGroup>
@@ -78,5 +76,8 @@
     <Build Include="dbo\Stored Procedures\spSaleInsert.sql" />
     <Build Include="dbo\Stored Procedures\spSaleDetailInsert.sql" />
     <Build Include="dbo\Stored Procedures\spSaleLookup.sql" />
+    <Build Include="dbo\Stored Procedures\spInventoryGetAll.sql" />
+    <Build Include="dbo\Stored Procedures\spInventoryInsert.sql" />
+    <Build Include="dbo\Stored Procedures\spSaleReport.sql" />
   </ItemGroup>
 </Project>
