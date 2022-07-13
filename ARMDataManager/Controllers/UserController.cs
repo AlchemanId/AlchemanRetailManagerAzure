@@ -11,7 +11,7 @@ using System.Web.Http;
 
 namespace ARMDataManager.Controllers
 {
-    //[Authorize]
+    [Authorize]
     //[RoutePrefix("api/User")]
     public class UserController : ApiController
     {
