@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -21,17 +22,20 @@ namespace ARMApi.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly IConfiguration _config;
 
-        public UserController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        public UserController(ApplicationDbContext context, UserManager<IdentityUser> userManager,
+            IConfiguration config)
         {
             this._context = context;
             this._userManager = userManager;
+            this._config = config;
         }
         [HttpGet] // this allow you to do 'get' method
         public UserModel GetById()
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier); //HttpContext.Current.User.Identity.GetUserId();
-            UserData data = new UserData();
+            UserData data = new UserData(_config);
             return data.GetUserById(userId).First();
         }
 
@@ -40,7 +44,7 @@ namespace ARMApi.Controllers
         public UsernameModel UserNameInfo()
         {
             string username = User.FindFirstValue(ClaimTypes.Name); //HttpContext.Current.User.Identity.GetUserName();
-            UsernameData data = new UsernameData();
+            UsernameData data = new UsernameData(_config);
             return data.GetUserByName(username).First();
         }
 
