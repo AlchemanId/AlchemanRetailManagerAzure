@@ -31,6 +31,7 @@ namespace ARMApi.Controllers
             this._userManager = userManager;
             this._config = config;
         }
+
         [HttpGet] // this allow you to do 'get' method
         public UserModel GetById()
         {
@@ -41,6 +42,7 @@ namespace ARMApi.Controllers
 
         //[HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("UserNameInfo")]
+        [HttpGet]
         public UsernameModel UserNameInfo()
         {
             string username = User.FindFirstValue(ClaimTypes.Name); //HttpContext.Current.User.Identity.GetUserName();
@@ -51,7 +53,7 @@ namespace ARMApi.Controllers
         [Authorize(Roles = "Admin")]
         //[AllowAnonymous]
         [HttpGet]
-        [Route("api/User/Admin/GetAllUsers")]
+        [Route("Admin/GetAllUsers")]
         public List<ApplicationUserModel> GetAllUser()
         {
             List<ApplicationUserModel> output = new List<ApplicationUserModel>();
@@ -82,7 +84,7 @@ namespace ARMApi.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        [Route("api/User/Admin/GetAllRoles")]
+        [Route("Admin/GetAllRoles")]
         public Dictionary<string, string> GetAllRoles()
         {
             var roles = _context.Roles.ToDictionary(x => x.Id, x => x.Name);
@@ -91,7 +93,7 @@ namespace ARMApi.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        [Route("api/User/Admin/AddRole")]
+        [Route("Admin/AddRole")]
         public async Task AddRole(UserRolePairModel pairing)
         {
             var user = await _userManager.FindByIdAsync(pairing.UserId);
@@ -100,7 +102,7 @@ namespace ARMApi.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        [Route("api/User/Admin/RemoveRole")]
+        [Route("Admin/RemoveRole")]
         public async Task RemoveRole(UserRolePairModel pairing)
         {
             var user = await _userManager.FindByIdAsync(pairing.UserId);
