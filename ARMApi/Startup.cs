@@ -16,6 +16,8 @@ using Microsoft.OpenApi.Models;
 using Microsoft.IdentityModel.Tokens;
 //using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
+using ARMDataManager.Library.DataAccess;
+using ARMDataManager.Library.Internal.DataAccess;
 
 namespace ARMApi
 {
@@ -39,6 +41,14 @@ namespace ARMApi
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            // Personal Services
+            services.AddTransient<IInventoryData, InventoryData>();
+            services.AddTransient<IProductData, ProductData>();
+            services.AddTransient<ISaleData, SaleData>();
+            services.AddTransient<IUserData, UserData>();
+            services.AddTransient<ISqlDataAccess, SqlDataAccess>();
+
             //note for AddJwtBearer. extra install package microsoft.aspnetcore.authentication.jwtbearer
             services.AddAuthentication(options =>
             {

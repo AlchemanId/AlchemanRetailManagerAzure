@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ARMDataManager.Library.Internal.DataAccess
 {
-    internal class SqlDataAccess : IDisposable
+    public class SqlDataAccess : IDisposable, ISqlDataAccess
     {
         private readonly IConfiguration _config;
         public SqlDataAccess(IConfiguration config)
@@ -24,7 +24,7 @@ namespace ARMDataManager.Library.Internal.DataAccess
             return _config.GetConnectionString(name);
             //return ConfigurationManager.ConnectionStrings[name].ConnectionString;
         }
-        public List<T> LoadData<T,U>(string storedProcedure, U parameters, string connectionStringName)
+        public List<T> LoadData<T, U>(string storedProcedure, U parameters, string connectionStringName)
         {
             string connectionString = GetConnectionString(connectionStringName);
 

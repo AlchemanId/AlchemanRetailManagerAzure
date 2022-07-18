@@ -22,32 +22,21 @@ namespace ARMApi.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly IConfiguration _config;
+        private readonly IUserData _userData;
 
         public UserController(ApplicationDbContext context, UserManager<IdentityUser> userManager,
-            IConfiguration config)
+            IUserData userData)
         {
             this._context = context;
             this._userManager = userManager;
-            this._config = config;
+            this._userData = userData;
         }
 
         [HttpGet] // this allow you to do 'get' method
         public UserModel GetById()
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier); //HttpContext.Current.User.Identity.GetUserId();
-            UserData data = new UserData(_config);
-            return data.GetUserById(userId).First();
-        }
-
-        //[HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
-        [Route("UserNameInfo")]
-        [HttpGet]
-        public UsernameModel UserNameInfo()
-        {
-            string username = User.FindFirstValue(ClaimTypes.Name); //HttpContext.Current.User.Identity.GetUserName();
-            UsernameData data = new UsernameData(_config);
-            return data.GetUserByName(username).First();
+            return _userData.GetUserById(userId).First();
         }
 
         [Authorize(Roles = "Admin")]
@@ -72,11 +61,6 @@ namespace ARMApi.Controllers
 
                 u.Roles = userRoles.Where(x => x.UserId == u.Id).ToDictionary(key => key.RoleId, val => val.Name);
 
-                //foreach (var r in user.Roles)
-                //{
-                //    u.Roles.Add(r.RoleId, roles.Where(x => x.Id == r.RoleId).First().Name);
-                //
-                //}
                 output.Add(u);
             }            
             return output;

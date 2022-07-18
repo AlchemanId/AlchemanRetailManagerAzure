@@ -9,20 +9,17 @@ using System.Threading.Tasks;
 
 namespace ARMDataManager.Library.DataAccess
 {
-    public class UserData
+    public class UserData : IUserData
     {
-        private readonly IConfiguration _config;
+        private readonly ISqlDataAccess _sql;
 
-        public UserData(IConfiguration config)
+        public UserData(ISqlDataAccess sql)
         {
-            this._config = config;
+            this._sql = sql;
         }
         public List<UserModel> GetUserById(string id)
         {
-            SqlDataAccess sql = new SqlDataAccess(_config);
-
-            var p = new {id = id};
-            var output = sql.LoadData<UserModel, dynamic>("dbo.spUserLookup", p, "ARMData");
+            var output = _sql.LoadData<UserModel, dynamic>("dbo.spUserLookup", new { id }, "ARMData");
             return output;
         }
     }

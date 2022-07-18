@@ -9,28 +9,24 @@ using System.Threading.Tasks;
 
 namespace ARMDataManager.Library.DataAccess
 {
-    public class InventoryData
+    public class InventoryData : IInventoryData
     {
-        private readonly IConfiguration _config;
+        private readonly ISqlDataAccess _sql;
 
-        public InventoryData(IConfiguration config)
+        public InventoryData(ISqlDataAccess sql)
         {
-            this._config = config;
+            this._sql = sql;
         }
         public List<InventoryModel> GetInventory()
         {
-            SqlDataAccess sql = new SqlDataAccess(_config);
-
-            var output = sql.LoadData<InventoryModel, dynamic>("dbo.spInventoryGetAll", new { }, "ARMData");
+            var output = _sql.LoadData<InventoryModel, dynamic>("dbo.spInventoryGetAll", new { }, "ARMData");
 
             return output;
         }
 
         public void SaveInventoryRecord(InventoryModel item)
         {
-            SqlDataAccess sql = new SqlDataAccess(_config);
-
-            sql.SaveData("dbo.spInventoryInsert", item, "ARMData");
+            _sql.SaveData("dbo.spInventoryInsert", item, "ARMData");
         }
     }
 }
