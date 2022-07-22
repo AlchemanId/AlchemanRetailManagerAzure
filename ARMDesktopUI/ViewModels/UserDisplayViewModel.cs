@@ -80,6 +80,7 @@ namespace ARMDesktopUI.ViewModels
             {
                 _selectedUserRole = value;
                 NotifyOfPropertyChange(() => SelectedUserRole);
+                NotifyOfPropertyChange(() => CanRemoveSelectedRole);
             }
         }
 
@@ -92,6 +93,7 @@ namespace ARMDesktopUI.ViewModels
             { 
                 _selectedAvailableRole = value;
                 NotifyOfPropertyChange(() => SelectedAvailableRole);
+                NotifyOfPropertyChange(() => CanAddSelectedRole);
             }
         }
 
@@ -153,11 +155,43 @@ namespace ARMDesktopUI.ViewModels
         private async Task LoadRoles()
         {
             var roles = await _userEndpoint.GetAllRoles();
+
+            AvailableRoles.Clear();
+
             foreach (var role in roles)
             {
                 if (UserRoles.IndexOf(role.Value) < 0)
                 {
                     AvailableRoles.Add(role.Value);
+                }
+            }
+        }
+
+        public bool CanAddSelectedRole
+        {
+            get
+            {
+                if (SelectedUser is null || SelectedAvailableRole is null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+        public bool CanRemoveSelectedRole
+        {
+            get
+            {
+                if (SelectedUser is null || SelectedUserRole is null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
                 }
             }
         }
@@ -174,7 +208,7 @@ namespace ARMDesktopUI.ViewModels
         {
             await _userEndpoint.RemoveUserFromRole(SelectedUser.Id, SelectedUserRole);
 
-            AvailableRoles.Remove(SelectedUserRole);
+            AvailableRoles.Add(SelectedUserRole);
             UserRoles.Remove(SelectedUserRole);
 
         }
