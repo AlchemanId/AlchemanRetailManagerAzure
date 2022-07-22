@@ -36,5 +36,14 @@ namespace ARMApi.Controllers
         {
             return _saleData.GetSaleReport();
         }
+
+        //[Authorize(Roles = "Admin,Manager")]
+        [AllowAnonymous]
+        [Route("GetTaxRate")]
+        [HttpGet]
+        public decimal GetTaxRate()
+        {
+            return _saleData.GetTaxRate();
+        }
     }
 }
