@@ -25,7 +25,7 @@ namespace ARMDataManager.Library.DataAccess
 
         public decimal GetTaxRate()
         {
-            string rateTax = _config.GetValue<string>("taxRate"); //ConfigurationManager.AppSettings["taxRate"];
+            string rateTax = _config.GetValue<string>("taxRate");
 
             bool IsValidTaxRate = decimal.TryParse(rateTax, out decimal output);
 

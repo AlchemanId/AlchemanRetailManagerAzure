@@ -10,9 +10,10 @@ using ARMDesktopUI.Helpers;
 using System.Windows.Controls;
 using ARMDesktopUI.Library.API;
 using ARMDesktopUI.Library.Models;
-using ARMDesktopUI.Library.Helpers;
 using AutoMapper;
 using ARMDesktopUI.Models;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace ARMDesktopUI
 {
@@ -41,10 +42,26 @@ namespace ARMDesktopUI
 
             return output;
         }
+
+        private IConfiguration AddConfiguration()
+        {
+            IConfigurationBuilder builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json");
+
+#if DEBUG
+            builder.AddJsonFile("appsettings.Development.json", optional:true, reloadOnChange: true);
+#else
+            builder.AddJsonFile("appsettings.Production.json", optional:true, reloadOnChange: true);
+#endif
+            return builder.Build();
+        }
+
         protected override void Configure()
         {
             _container.Instance(ConfigureAutomapper());
 
+            
             _container.Instance(_container)
                 .PerRequest<IProductEndpoint, ProductEndpoint>()
                 .PerRequest<IUserEndpoint, UserEndpoint>()
@@ -54,8 +71,9 @@ namespace ARMDesktopUI
                 .Singleton<IWindowManager, WindowManager>()
                 .Singleton<IEventAggregator, EventAggregator>()
                 .Singleton<ILoggedInUserModel, LoggedInUserModel>()
-                .Singleton<IConfigHelper, ConfigHelper>()
                 .Singleton<IAPIHelper, APIHelper>();
+
+            _container.RegisterInstance(typeof(IConfiguration), "IConfiguration", AddConfiguration());
 
             GetType().Assembly.GetTypes()
                 .Where(type => type.IsClass)

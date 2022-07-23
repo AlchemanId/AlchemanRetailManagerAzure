@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Net.Http.Headers;
 using System.Configuration;
 using ARMDesktopUI.Library.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace ARMDesktopUI.Library.API
 {
@@ -14,10 +15,13 @@ namespace ARMDesktopUI.Library.API
     {
         private HttpClient _apiClient { get; set; }
         ILoggedInUserModel _loggedInUser;
-        public APIHelper(ILoggedInUserModel loggedInUser)
+        private readonly IConfiguration _config;
+
+        public APIHelper(ILoggedInUserModel loggedInUser, IConfiguration config)
         {
-            InitializeClient();
             _loggedInUser = loggedInUser;
+            this._config = config;
+            InitializeClient();
         }
         public HttpClient ApiClient 
         {
@@ -28,7 +32,7 @@ namespace ARMDesktopUI.Library.API
         }
         private void InitializeClient()
         {
-            string api = ConfigurationManager.AppSettings["api"];
+            string api = _config.GetValue<string>("api");
             _apiClient = new HttpClient();
             _apiClient.BaseAddress = new Uri(api);
             _apiClient.DefaultRequestHeaders.Accept.Clear();
