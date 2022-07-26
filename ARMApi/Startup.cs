@@ -17,7 +17,6 @@ using Microsoft.IdentityModel.Tokens;
 //using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using ARMDataManager.Library.DataAccess;
-using ARMDataManager.Library.Internal.DataAccess;
 
 namespace ARMApi
 {

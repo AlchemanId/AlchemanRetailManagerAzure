@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ARMDataManager.Library.Internal.DataAccess
+namespace ARMDataManager.Library.DataAccess
 {
     public class SqlDataAccess : IDisposable, ISqlDataAccess
     {
@@ -20,7 +20,7 @@ namespace ARMDataManager.Library.Internal.DataAccess
         public SqlDataAccess(IConfiguration config, ILogger<SqlDataAccess> logger)
         {
             _config = config;
-            this._logger = logger;
+            _logger = logger;
         }
 
         public string GetConnectionString(string name)

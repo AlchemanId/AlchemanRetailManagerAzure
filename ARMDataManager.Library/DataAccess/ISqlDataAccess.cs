@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ARMDataManager.Library.Internal.DataAccess
+namespace ARMDataManager.Library.DataAccess
 {
     public interface ISqlDataAccess
     {
